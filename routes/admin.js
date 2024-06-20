@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 require("../models/Categoria");
 const Categoria = mongoose.model("categorias")
-require("../models/Postagens")
+require("../models/Postagem")
 const Postagem = mongoose.model("postagens")
 
 router.get("/", (req, res) => {
@@ -231,6 +231,16 @@ router.post("/postagem/edit", (req, res) => {
     }
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro ao salvar a edição")
+    res.redirect("/admin/postagens")
+  })
+})
+
+router.get("/postagens/deletar/:id", (req, res) => {
+  Postagem.deleteOne({_id: req.params.id}).then(() => {
+    req.flash("remove_msg", "Postagem deletada com sucesso")
+    res.redirect("/admin/postagens")
+  }).catch((err) => {
+    req.flash("error_msg", "Houve um erro interno")
     res.redirect("/admin/postagens")
   })
 })
