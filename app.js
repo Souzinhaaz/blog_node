@@ -15,6 +15,7 @@
   const usuarios = require("./routes/usuario")
   const passport = require("passport")
   require("./config/auth")(passport)
+  const db = require("./config/db")
 // Configurações 
   // Sessão
     app.use(session({
@@ -30,6 +31,9 @@
       res.locals.success_msg = req.flash("success_msg");
       res.locals.error_msg = req.flash("error_msg");
       res.locals.remove_msg = req.flash("remove_msg");
+      res.locals.error = req.flash("error");
+      res.locals.user = req.user || null;
+      // O passport cria esse req.user automáticamente
       next();
     })
   // Body Parser
@@ -46,7 +50,7 @@
     app.set("view engine", "handlebars");
   // Mongoose
     mongoose.Promise = global.Promise
-    mongoose.connect("mongodb://localhost/blogapp").then(() => {
+    mongoose.connect(db.mongoURI).then(() => {
       console.log("Conectado ao mongo")
     }).catch((err) => {
       console.log("Erro ao se conectar: " + err);
@@ -117,7 +121,7 @@
     app.use('/admin', admin)
     app.use("/usuarios", usuarios)
 // Outros
-const PORT = 8081;
+const PORT = process.env.PORT || 8089;
 app.listen(PORT, () => {
-  console.log(`O servidor está rodando na URL http://localhost:${PORT}`)
+  console.log(`O servidor está rodando`)
 })
