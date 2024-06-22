@@ -1,4 +1,9 @@
 <h1>{{categoria.nome}}</h1>
+<p>
+  <a href="/categorias" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Home</a> / 
+  <a href="/categorias/{{categoria.slug}}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{categoria.nome}}</a>
+</p>
+
 {{#each postagens}}
 <div class="card mt-4">
   <div class="card-body">
