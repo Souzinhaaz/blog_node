@@ -1,5 +1,6 @@
 // Carregando módulos
   const express = require("express");
+  require("dotenv").config();
   const handlebars = require("express-handlebars");
   const bodyParser = require("body-parser");
   const app = express();
@@ -15,7 +16,6 @@
   const usuarios = require("./routes/usuario")
   const passport = require("passport")
   require("./config/auth")(passport)
-  const db = require("./config/db")
 // Configurações 
   // Sessão
     app.use(session({
@@ -49,8 +49,9 @@
     }));
     app.set("view engine", "handlebars");
   // Mongoose
+    const URI = process.env.MONGO_URI || "mongodb://localhost/blogapp";
     mongoose.Promise = global.Promise
-    mongoose.connect(db.mongoURI).then(() => {
+    mongoose.connect(URI).then(() => {
       console.log("Conectado ao mongo")
     }).catch((err) => {
       console.log("Erro ao se conectar: " + err);
@@ -123,5 +124,5 @@
 // Outros
 const PORT = process.env.PORT || 8089;
 app.listen(PORT, () => {
-  console.log(`O servidor está rodando`)
+  console.log(`O servidor está rodando na porta ${PORT}`)
 })
