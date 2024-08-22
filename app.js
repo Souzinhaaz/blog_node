@@ -4,7 +4,6 @@
   const handlebars = require("express-handlebars");
   const bodyParser = require("body-parser");
   const app = express();
-  const admin = require("./routes/admin");
   const path = require("path");
   const mongoose = require("mongoose");
   const session = require("express-session");
@@ -14,6 +13,7 @@
   require("./models/Categoria")
   const Categoria = mongoose.model("categorias");
   const usuarios = require("./routes/usuario")
+  const admin = require("./routes/admin");
   const passport = require("passport")
   require("./config/auth")(passport)
 // Configurações 

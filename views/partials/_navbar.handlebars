@@ -13,6 +13,11 @@
         <a class="nav-link" href="/categorias">Categorias</a>
       </li>
       {{#if user}}
+        {{#if user.eAdmin}} 
+          <li class="nav-item">
+            <a class="nav-link link-info" href="/admin/">Admin</a>
+          </li>
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link link-danger" href="/usuarios/logout">Sair</a>
         </li>
